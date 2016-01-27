@@ -10,4 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//read fichier: get_next_line
+//appeler la fonction split pour couper et recuperer que les caracteres
+//creer un tableau d'int et appeler ft_atoi pour recuperer des int.
+//
+
+#include 
+
+
+int     tab()
+{
+     
+}
+int     read_file()
+ {
+ 
+ 
+ }
 
