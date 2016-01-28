@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/01/27 17:07:11 by asalama          ###   ########.fr       */
+/*   Updated: 2016/01/28 18:07:55 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int		main()
 	int		y;
 
 	mlx = mlx_init();
-	win = mlx_new_window(mlx, 400, 400, "mlx 42");
+	win = mlx_new_window(mlx, 1000, 1000, "mlx 42");
 	y = 50;
-	while (y < 150)
+	while (y < 1500)
 	{
 		x = 50;
-		while (x < 150)
+		while (x < 1500)
 		{
 			mlx_pixel_put(mlx, win, x, y, 0x00FFFFFF);
 			x++;
