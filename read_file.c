@@ -6,46 +6,66 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 19:24:42 by asalama           #+#    #+#             */
-/*   Updated: 2016/01/28 19:05:49 by asalama          ###   ########.fr       */
+/*   Updated: 2016/01/29 17:25:16 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//read fichier: get_next_line
-//appeler la fonction split pour couper et recuperer que les caracteres
-//creer un tableau d'int et appeler ft_atoi pour recuperer des int.
-//
-
-#include <mlx.h>
 #include "fdf.h"
 
-int		check_line(char *line)
+int			check_line(char *line)
 {
 	int		i;
 
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (!ft_isdigit(line[i]) && line[i] != ' ' && line[i] = '-')
+		if ((!ft_isdigit(line[i]) && line[i] != ' ') || line[i] == '-')
 			return (-1);
 		i++;
 	}
 	return (1);
 }
 
-int		double_tab_int(char **tab, int fd, char **line)	
+int			**double_tab_int(int fd, char **line, char **argv)
 {
 	int		i;
 	int		size;
+	char	**tab_char;
+	int		**tab_int;
+	int		j;
 
 	size = 0;
-//	while (get_next_line(fd, line) > 0)
-//		size++;
-	if (!(tab = (int**)ft_memalloc(sizeof(int*) * size)))
+	while (get_next_line(fd, line) > 0)
+		size++;
+	close(fd);
+	if (!(tab_int = (int**)malloc(sizeof(int*) * size + 1)))
 		return (NULL);
-	tab[size + 1] = NULL;
-	return (tab);
+	tab_int[size + 1] = NULL;
+	i = 0;
+	fd = open(argv[1], O_RDONLY);
+	while (tab_int[i] != NULL)
+	{
+		get_next_line(fd, line);
+		size = 0;
+		j = 1;
+		if (!check_line(*line))
+			return (NULL);
+		tab_char = ft_strsplit(*line, ' ');
+		while (tab_char[size] != NULL)
+			size++;
+		tab_int[i] = (int*)malloc(sizeof(int) * size + 1);
+		tab_int[i][0] = size;
+		while (tab_char[j] != NULL)
+		{
+			tab_int[i][j] = ft_atoi(tab_char[i]);
+			j++;
+		}
+		i++;
+	}
+	return (tab_int);
 }
 
+/*compte le nombre de ligne dans mon fichier
 int		count_tab(char **tmp)
 {
 	int		i;
@@ -55,38 +75,18 @@ int		count_tab(char **tmp)
 		i++;
 	return (i);
 }
+*/
 
-int		parse_tab(char **tab, int size, char **line)
-{
-	char	**split;
-
-	if (check_line(line))
-	{
-		if (split = ft_strsplit(line, ' '))
-		{
-		}
-	}
-	return (0);
-}
-
-int     read_file(char **argv)
+int			read_file(char **argv)
 {
 	int		fd;
-	char	*line;
-	int		gnl;
-	int		**tab;
+	char	**line;
 
+	line = NULL;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (-1);
-	double...
-	while (gnl = get_next_line(fd, line))	
-	{
-		if (gnl == -1)
-			return (-1);
-		if (!tab[i] = (int*)ft_memalloc(sizeof(int) * ft_strlen(line)))
-			return (NULL);
-	}
+	double_tab_int(fd, line, argv);
 	close(fd);
 	return (1);
 }

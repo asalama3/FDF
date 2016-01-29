@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:11:13 by asalama           #+#    #+#             */
-/*   Updated: 2016/01/28 18:26:11 by asalama          ###   ########.fr       */
+/*   Updated: 2016/01/29 17:18:17 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,22 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define BUFF_SIZE 32
+
 typedef struct		s_list
 {
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_link
+{
+	int				fd;
+	char			*mem;
+	struct s_link	*next;
+	struct s_link	*prev;
+}					t_link;
 
 /*
 ** Part 1
@@ -98,5 +108,11 @@ void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+
+/*
+** GNL
+*/
+
+int					get_next_line(int const fd, char **line);
 
 #endif

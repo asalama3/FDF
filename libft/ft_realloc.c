@@ -6,7 +6,7 @@
 /*   By: asalama <asalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 18:07:28 by asalama           #+#    #+#             */
-/*   Updated: 2016/01/28 18:25:40 by asalama          ###   ########.fr       */
+/*   Updated: 2016/01/29 16:50:07 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void	*ft_realloc(void *ptr, size_t size)
 {
 	void	*mem;
 
+	mem = NULL;
 	if (!ptr)
 		mem = malloc(size);
-	else if (size == NULL)
+	else if (size == 0)
 		free(ptr);
 	else
-		if (mem = malloc(size))
+		if (mem == malloc(size))
 		{
 			ft_memcpy(mem, ptr, size);
 			free(ptr);
