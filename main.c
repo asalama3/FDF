@@ -11,7 +11,14 @@
 /* ************************************************************************** */
 
 #include <mlx.h>
+#include "fdf.h"
+#include <stdio.h>
 
+int		my_key_funct(int keycode, void *param)
+{
+	printf("key event %d\n", keycode);
+	return (0):
+}
 int		main()
 {
 	void	*mlx;
@@ -32,6 +39,7 @@ int		main()
 		}
 		y++;
 	}
+	mlx_key_hook(win, my_key_funct, 0);
 	mlx_loop(mlx); // donner la main a lensemble du system graphique mac qui se charge d'affichier la fenetre.
 }
 
