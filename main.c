@@ -14,33 +14,49 @@
 #include "fdf.h"
 #include <stdio.h>
 
-int		my_key_funct(int keycode, void *param)
+//tracer un segment ac 2 points en 2D
+//
+int		key_hook(int keycode, t_env *env)
 {
-	printf("key event %d\n", keycode);
+	if (env)
+	{
+		if (keycode == 53)
+			exit(-1);
+	}
+	printf("keycode %d\n", keycode);
 	return (0):
 }
-int		main()
+
+int		draw(t_env *env)
 {
-	void	*mlx;
-	void	*win;
 	int		x;
 	int		y;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 1000, 1000, "mlx 42");
-	y = 50;
-	while (y < 1500)
+	y = 0;
+	while (y < 500)
 	{
-		x = 50;
-		while (x < 1500)
+		x = 0;
+		while (x < 500)
 		{
-			mlx_pixel_put(mlx, win, x, y, 0x00FFFFFF);
+			mlx_pixel_put(env.mlx, env.win, x, y, 0x00FFFFFF)
 			x++;
 		}
-		y++;
+	y++;
 	}
-	mlx_key_hook(win, my_key_funct, 0);
-	mlx_loop(mlx); // donner la main a lensemble du system graphique mac qui se charge d'affichier la fenetre.
 }
 
-// 
+
+int		main()
+{
+	t_env env;
+
+	env.mlx = mlx_init();
+	env.win = mlx_new_window(env.mlx, 1000, 1000, "42");
+	env.img = mlx_new_image(env.mlx, 500, 500);
+	draw(env);
+	env.addr = mlx_get_data_addr(env.img, env.bits_per_pixel, env.size_line, env.endian);
+	mlx_put_image_to_window(env.mlx, env.win, env.img, 10, 10);
+	mlx_key_hook(env.win, key_hook, &env);
+	mlx_loop(env.mlx); // afficher la fenetre
+	return (0);
+}

@@ -18,6 +18,18 @@
 #include <mlx.h>
 #include "libft/libft.h"
 
+typedef struct		s_env
+{
+	void			*mlx;
+	void			*win;
+	char			*addr;
+	void			*img;
+	int				*size_line;
+	int				*endian;
+	int				*bits_per_pixel;
+}					t_env;
+
+
 /*typedef struct		s_tab
 {
 	int				fd;
