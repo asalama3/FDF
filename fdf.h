@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/01/29 17:11:55 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/04 16:30:54 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ typedef struct		s_env
 	int				*size_line;
 	int				*endian;
 	int				*bits_per_pixel;
+	int				x1;
+	int				y1;
+	int				x2;
+	int				y2;
 }					t_env;
 
 

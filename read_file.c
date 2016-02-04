@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 19:24:42 by asalama           #+#    #+#             */
-/*   Updated: 2016/01/29 17:25:16 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/04 16:30:52 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,13 @@ int			read_file(char **argv)
 {
 	int		fd;
 	char	**line;
+	int		**tab;
 
 	line = NULL;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (-1);
-	double_tab_int(fd, line, argv);
+	tab = double_tab_int(fd, line, argv);
 	close(fd);
 	return (1);
 }
