@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/04 16:30:54 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/05 14:22:50 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 # define FDF_H
 
 
+#include "libft/libft.h"
 #include <fcntl.h>
 #include <mlx.h>
-#include "libft/libft.h"
+#include <stdlib.h>
+#include <math.h>
 
 typedef struct		s_env
 {

@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/04 16:30:57 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/05 14:22:42 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ int		key_hook(int keycode, t_env env)
 	return (0);
 }
 
-int		draw_pixel(t_env env)
+int		draw_pixel(t_env env, char **tab_int, int fd)
 {
 	int		x;
 	int		y;
 
-	mlx_pixel_put(env.mlx, env.win, x, y, 0x00FFFFFF);		
-	return (0);
+//	while (fd)
+	{
+		 mlx_pixel_put(env.mlx, env.win, x, y, 0x00FFFFFF);
+	}
+		return (0);
 }
 
 /*
@@ -51,19 +54,27 @@ void	draw_line(t_env *coord, t_env env)
 }
 */
 
-int		main()
+int		main(int argc, char **argv)
 {
 	t_env	env;
 	t_env	*coord;
-	char	**tab;
+	int		fd;
+	char	**tab_int;
 
-	env.mlx = mlx_init();
-	env.win = mlx_new_window(env.mlx, 1000, 1000, "42");
-	env.img = mlx_new_image(env.mlx, 500, 500);
-	draw_pixel(env, tab);
+	if (argc == 2)
+	{
+		if (!read_file(&argv[1]))
+			return (-1);
+		if ((fd = open(argv[1], O_RDONLY)) == -1)
+			return (-1);
+		env.mlx = mlx_init();
+		env.win = mlx_new_window(env.mlx, 1000, 1000, "42");
+		env.img = mlx_new_image(env.mlx, 500, 500);
+		draw_pixel(env, tab_int, fd);
 //	env.addr = mlx_get_data_addr(env.img, env.bits_per_pixel, env.size_line, env.endian);
-	mlx_put_image_to_window(env.mlx, env.win, env.img, 10, 10);
-	mlx_key_hook(env.win, key_hook, &env);
-	mlx_loop(env.mlx); // afficher la fenetre
+		mlx_put_image_to_window(env.mlx, env.win, env.img, 10, 10);
+		mlx_key_hook(env.win, key_hook, &env);
+		mlx_loop(env.mlx); // afficher la fenetre
+	}
 	return (0);
 }
