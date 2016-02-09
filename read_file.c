@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 19:24:42 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/08 16:45:31 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/09 20:10:17 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,47 +26,54 @@ int			check_line(char *line)
 	return (1);
 }
 
-int			**double_tab_int(int fd, char **argv)
+t_tab			*double_tab_int(int fd, char *argv)
 {
 	int		i;
-	int		size;
+	t_tab	*tab;
+//	int		size_hor;
 	char	**tab_char;
-	int		**tab_int;
+//	int		**tab_int;
 	int		j;
 	char	*line;
-	int		size2;
+//	int		size_ver;
 
-	size = 0;
-	size2 = 0;
-	while (get_next_line(fd, &line) > 0)
-		size++;
-	close(fd);
-	if (!(tab_int = (int**)malloc(sizeof(int*) * size + 1)))
+	if ((tab = (t_tab*)malloc(sizeof(t_tab))) == NULL)
 		return (NULL);
+	tab->size_hor = 0;
+	tab->size_ver = 0;
+	while (get_next_line(fd, &line) > 0)
+		tab->size_hor++;
+	ft_putstr("OK\n");
+	close(fd);
+	if (!(tab->tab_int = (int**)malloc(sizeof(int*) * tab->size_hor + 1)))
+		return (NULL);
+	ft_putstr("----------\n");
 //	tab_int[size + 1] = NULL;
 	i = 0;
-	fd = open(argv[1], O_RDONLY);
-	while (i < size)
+	fd = open(argv, O_RDONLY);
+	while (i < tab->size_hor)
 	{
 		get_next_line(fd, &line);
+	ft_putstr("++++++++\n");
 //		size = 0;
 		j = 0;
 		if (!check_line(line))
 			return (NULL);
 		tab_char = ft_strsplit(line, ' ');
-		while (tab_char[size2])
-			size2++;
-		tab_int[i] = (int*)malloc(sizeof(int) * size2 + 1);
+	ft_putstr("pppppppppp\n");
+		while (tab_char[tab->size_ver])
+			tab->size_ver++;
+		tab->tab_int[i] = (int*)malloc(sizeof(int) * tab->size_ver + 1);
 //		tab_int[i][0] = size2;
-		while (j < size2)
+		while (j < tab->size_ver)
 		{
-			tab_int[i][j] = ft_atoi(tab_char[j]);
+			tab->tab_int[i][j] = ft_atoi(tab_char[j]);
 			j++;
 		}
 		i++;
 	}
 		close(fd);
-	return (tab_int);
+	return (tab);
 }
 
 /*compte le nombre de ligne dans mon fichier
@@ -101,22 +108,23 @@ int			print_tab_int(int **tab_int)
 	}
 	return (0);
 }
-int			read_file(char **argv)
+
+int			read_file(char *argv)
 {
 	int		fd;
-	int		**tab;
+	t_tab	*tab;
 
-	if ((fd = open(argv[1], O_RDONLY)) == -1)
+	if ((fd = open(argv, O_RDONLY)) == -1)
 		return (-1);
 	tab = double_tab_int(fd, argv);
-	print_tab_int(tab);
+	print_tab_int(tab->tab_int);
 //	close(fd);
 	return (1);
 }
-
+/*
 int		main(int argc, char **argv)
 {
 	if (argc == 2)
-		read_file(argv);
+		read_file(argv[1]);
 	return (0);
-}
+}*/

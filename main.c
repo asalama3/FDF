@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/08 16:58:42 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/09 20:10:13 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "fdf.h"
 #include <stdio.h>
 
-//tracer un segment ac 2 points en 2D
-// afficher un pixel pour chaque point et les relier apres
 int		key_hook(int keycode, t_env env)
 {
 	if (keycode == 53)
@@ -24,35 +22,21 @@ int		key_hook(int keycode, t_env env)
 	return (0);
 }
 
-int		draw_pixel(t_env env, char **tab_int, int fd)
+int		draw_square(t_env *env)
 {
-	int		x;
-	int		y;
-
-//	while (fd)
+	env->y = 0;
+	while (env->y < 25)
 	{
-		 mlx_pixel_put(env.mlx, env.win, x, y, 0x00FFFFFF);
+		env->x = 0;
+		while (env->x < 25)
+		{
+			env->addr[env->y * env->size_line + env->x] = 255;
+			env->x = env->x + 4;
+		}
+		env->y++;
 	}
-		return (0);
+	return (0);
 }
-
-/*
-void	draw_line(t_env *coord, t_env env)
-{
-	int		x;
-	int		y;
-	
-	if (coord->x1 <= coord->x2)
-		x = coord->x2 - coord->x1;
-	else
-		x = coord->x1 - coord->x2;
-	if (coord->y1 <= coord->y2)
-		y = coord->y2 - coord->y1;
-	else
-		y = coord->y1 - coord->y2;
-	mlx_pixel_put(env.mlx, env.win, x, y, 0x00FFFFFF);
-}
-*/
 
 int		main(int argc, char **argv)
 {
@@ -63,15 +47,16 @@ int		main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		if (!read_file(&argv[1]))
-			return (-1);
-		if ((fd = open(argv[1], O_RDONLY)) == -1)
+		if (!read_file(argv[1]))
 			return (-1);
 		env.mlx = mlx_init();
 		env.win = mlx_new_window(env.mlx, 1000, 1000, "42");
-		env.img = mlx_new_image(env.mlx, 500, 500);
-		draw_pixel(env, tab_int, fd);
-//	env.addr = mlx_get_data_addr(env.img, env.bits_per_pixel, env.size_line, env.endian);
+		env.img = mlx_new_image(env.mlx, 50, 50);
+		env.addr = mlx_get_data_addr(&env.img, &env.bits_per_pixel, &env.size_line, &env.endian);
+		printf("SL : %i\n", env.size_line);
+		printf("BPP : %i\n", env.bits_per_pixel);
+		printf("ENDIAN : %i\n", env.endian);
+		draw_square(&env);
 		mlx_put_image_to_window(env.mlx, env.win, env.img, 10, 10);
 		mlx_key_hook(env.win, key_hook, &env);
 		mlx_loop(env.mlx); // afficher la fenetre
