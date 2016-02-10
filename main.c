@@ -6,34 +6,51 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/09 20:10:13 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/10 17:02:18 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include "fdf.h"
 #include <stdio.h>
 
-int		key_hook(int keycode, t_env env)
+int		key_hook(int keycode, t_env *env)
 {
 	if (keycode == 53)
 		exit(-1);
+	if (keycode == 124)
+		move_right(env);
+	if (keycode == 123)
+		move_left(env);
+	if (keycode == 126)
+		move_up(env);
+	if (keycode == 125)
+		move_down(env);
+	if (keycode == 78)
+		zoom_out(env);
+	if (keycode == 69)
+		zoom_in(env);
 	printf("keycode %d\n", keycode);
 	return (0);
 }
 
 int		draw_square(t_env *env)
 {
-	env->y = 0;
-	while (env->y < 25)
+	int		x;
+	int		y;
+
+	y = 0;
+	while (y < 1000)
 	{
-		env->x = 0;
-		while (env->x < 25)
+		x = 0;
+		while (x < 500)
 		{
-			env->addr[env->y * env->size_line + env->x] = 255;
-			env->x = env->x + 4;
+			// ENDIAN A 0 DONC LECTURE (alpha | RGB)<-
+			env->addr[y * env->size_line + x++] = 255; //BLEU
+			env->addr[y * env->size_line + x++] = 0; // VERT
+			env->addr[y * env->size_line + x++] = 100; //ROUGE
+			env->addr[y * env->size_line + x++] = 200; //TRANSPARENCE
 		}
-		env->y++;
+		y++;
 	}
 	return (0);
 }
@@ -41,25 +58,28 @@ int		draw_square(t_env *env)
 int		main(int argc, char **argv)
 {
 	t_env	env;
-	t_env	*coord;
+	t_tab	*tab;
 	int		fd;
 	char	**tab_int;
 
 	if (argc == 2)
 	{
-		if (!read_file(argv[1]))
+		if (!(tab = read_file(argv[1])))
 			return (-1);
+		print_tab_int(tab->tab_int);
+		env.x = 0;
+		env.y = 0;
 		env.mlx = mlx_init();
 		env.win = mlx_new_window(env.mlx, 1000, 1000, "42");
-		env.img = mlx_new_image(env.mlx, 50, 50);
-		env.addr = mlx_get_data_addr(&env.img, &env.bits_per_pixel, &env.size_line, &env.endian);
+		env.img = mlx_new_image(env.mlx, 1000, 1000);
+		env.addr = mlx_get_data_addr(env.img, &env.bpp, &env.size_line, &env.endian);
 		printf("SL : %i\n", env.size_line);
-		printf("BPP : %i\n", env.bits_per_pixel);
+		printf("BPP : %i\n", env.bpp);
 		printf("ENDIAN : %i\n", env.endian);
 		draw_square(&env);
-		mlx_put_image_to_window(env.mlx, env.win, env.img, 10, 10);
+		mlx_put_image_to_window(env.mlx, env.win, env.img, env.x, env.y);
 		mlx_key_hook(env.win, key_hook, &env);
-		mlx_loop(env.mlx); // afficher la fenetre
+		mlx_loop(env.mlx);
 	}
 	return (0);
 }

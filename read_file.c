@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 19:24:42 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/09 20:10:17 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/10 17:02:16 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,17 @@ t_tab			*double_tab_int(int fd, char *argv)
 	close(fd);
 	if (!(tab->tab_int = (int**)malloc(sizeof(int*) * tab->size_hor + 1)))
 		return (NULL);
-	ft_putstr("----------\n");
 //	tab_int[size + 1] = NULL;
 	i = 0;
 	fd = open(argv, O_RDONLY);
 	while (i < tab->size_hor)
 	{
 		get_next_line(fd, &line);
-	ft_putstr("++++++++\n");
 //		size = 0;
 		j = 0;
 		if (!check_line(line))
 			return (NULL);
 		tab_char = ft_strsplit(line, ' ');
-	ft_putstr("pppppppppp\n");
 		while (tab_char[tab->size_ver])
 			tab->size_ver++;
 		tab->tab_int[i] = (int*)malloc(sizeof(int) * tab->size_ver + 1);
@@ -109,17 +106,18 @@ int			print_tab_int(int **tab_int)
 	return (0);
 }
 
-int			read_file(char *argv)
+t_tab		*read_file(char *argv)
 {
 	int		fd;
 	t_tab	*tab;
-
+	
 	if ((fd = open(argv, O_RDONLY)) == -1)
-		return (-1);
+		return (0);
 	tab = double_tab_int(fd, argv);
+//	double_tab_int(fd, argv, tab);
 	print_tab_int(tab->tab_int);
 //	close(fd);
-	return (1);
+	return (tab);
 }
 /*
 int		main(int argc, char **argv)

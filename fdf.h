@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/09 20:10:19 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/10 17:02:21 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct		s_env
 	void			*img;
 	int				size_line;
 	int				endian;
-	int				bits_per_pixel;
+	int				bpp;
 	int				x;
 	int				y;
 }					t_env;
@@ -47,7 +47,14 @@ typedef struct		s_tab
 ** READ
 */
 
-int					read_file(char *argv);
-
+t_tab				*read_file(char *argv);
+int					print_tab_int(int **tab_int);
+void				move_right(t_env *env);
+void				move_left(t_env *env);
+void				move_up(t_env *env);
+void				move_down(t_env *env);
+void				zoom_out(t_env *env);
+void				zoom_in(t_env *env);
 #endif
+
 
