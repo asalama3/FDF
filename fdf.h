@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/11 12:43:46 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/11 17:39:13 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ typedef struct		s_tab
 
 }					t_tab;
 
-typedef struct		s_coord;
+typedef struct		s_coord
 {
 	int				x1;
 	int				x2;
+	int				tmp1;
+	int				tmp2;
 	int				y1;
 	int				y2;
 	int				boo;
