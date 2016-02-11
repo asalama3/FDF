@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/10 18:18:30 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/11 12:43:46 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <mlx.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 typedef struct		s_env
 {
@@ -42,12 +43,23 @@ typedef struct		s_tab
 
 }					t_tab;
 
+typedef struct		s_coord;
+{
+	int				x1;
+	int				x2;
+	int				y1;
+	int				y2;
+	int				boo;
+}					t_coord;
+
 
 /*
 ** READ
 */
 
 t_tab				*read_file(char *argv);
+void				tabtab(t_tab *tab, t_env *env);
+void				put_pixel(t_env *env, int x, int y);
 int					print_tab_int(int **tab_int);
 void				move_right(t_env *env);
 void				move_left(t_env *env);

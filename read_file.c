@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 19:24:42 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/10 18:18:26 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/11 12:32:27 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ t_tab			*double_tab_int(int fd, char *argv)
 	tab->size_hor = 0;
 	tab->size_ver = 0;
 	while (get_next_line(fd, &line) > 0)
-		tab->size_hor++;
+		tab->size_ver++;
 	ft_putstr("OK\n");
 	close(fd);
-	if (!(tab->tab_int = (int**)malloc(sizeof(int*) * tab->size_hor + 1)))
+	if (!(tab->tab_int = (int**)malloc(sizeof(int*) * tab->size_ver + 1)))
 		return (NULL);
 //	tab_int[size + 1] = NULL;
 	i = 0;
 	fd = open(argv, O_RDONLY);
-	while (i < tab->size_hor)
+	while (i < tab->size_ver)
 	{
 		get_next_line(fd, &line);
 //		size = 0;
@@ -58,11 +58,11 @@ t_tab			*double_tab_int(int fd, char *argv)
 		if (!check_line(line))
 			return (NULL);
 		tab_char = ft_strsplit(line, ' ');
-		while (tab_char[tab->size_ver])
-			tab->size_ver++;
-		tab->tab_int[i] = (int*)malloc(sizeof(int) * tab->size_ver + 1);
+		while (tab_char[tab->size_hor])
+			tab->size_hor++;
+		tab->tab_int[i] = (int*)malloc(sizeof(int) * tab->size_hor + 1);
 //		tab_int[i][0] = size2;
-		while (j < tab->size_ver)
+		while (j < tab->size_hor)
 		{
 			tab->tab_int[i][j] = ft_atoi(tab_char[j]);
 			j++;

@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/10 18:18:28 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/11 12:32:25 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int		main(int argc, char **argv)
 		if (!(tab = read_file(argv[1])))
 			return (-1);
 		print_tab_int(tab->tab_int);
-		env.x = 0;
-		env.y = 0;
+		env.x = 30;
+		env.y = 40;
 		env.mlx = mlx_init();
 		env.win = mlx_new_window(env.mlx, 1000, 1000, "42");
 		env.img = mlx_new_image(env.mlx, 1000, 1000);
@@ -76,7 +76,8 @@ int		main(int argc, char **argv)
 		printf("SL : %i\n", env.size_line);
 		printf("BPP : %i\n", env.bpp);
 		printf("ENDIAN : %i\n", env.endian);
-		draw_square(&env);
+//		draw_square(&env);
+		tabtab(tab, &env);
 		mlx_put_image_to_window(env.mlx, env.win, env.img, env.x, env.y);
 		mlx_key_hook(env.win, key_hook, &env);
 		mlx_loop(env.mlx);
