@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/12 13:52:57 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/12 18:50:27 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#define TARTE 20
+#define SPACE 20
 
 typedef struct		s_env
 {
@@ -33,6 +33,7 @@ typedef struct		s_env
 	int				bpp;
 	int				x;
 	int				y;
+	int				space;
 }					t_env;
 
 
@@ -60,7 +61,7 @@ typedef struct		s_coord
 t_tab				*read_file(char *argv);
 void				tabtab(t_tab *tab, t_env *env);
 void				put_pixel(t_env *env, int x, int y);
-int					print_tab_int(int **tab_int);
+int					print_tab_int(t_tab *tab);
 void				move_right(t_env *env);
 void				move_left(t_env *env);
 void				move_up(t_env *env);

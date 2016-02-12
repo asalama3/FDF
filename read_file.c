@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 19:24:42 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/12 13:52:59 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/12 18:50:32 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int			check_line(char *line)
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if ((!ft_isdigit(line[i]) && line[i] != ' ') || line[i] == '-')
-			return (-1);
+		if ((!ft_isdigit(line[i]) && line[i] != ' ') && line[i] != '-')
+			return (0);
 		i++;
 	}
 	return (1);
@@ -30,12 +30,9 @@ t_tab			*double_tab_int(int fd, char *argv)
 {
 	int		i;
 	t_tab	*tab;
-//	int		size_hor;
 	char	**tab_char;
-//	int		**tab_int;
 	int		j;
 	char	*line;
-//	int		size_ver;
 
 	if ((tab = (t_tab*)malloc(sizeof(t_tab))) == NULL)
 		return (NULL);
@@ -43,7 +40,6 @@ t_tab			*double_tab_int(int fd, char *argv)
 	tab->size_ver = 0;
 	while (get_next_line(fd, &line) > 0)
 		tab->size_ver++;
-	ft_putstr("OK\n");
 	close(fd);
 	if (!(tab->tab_int = (int**)malloc(sizeof(int*) * tab->size_ver + 1)))
 		return (NULL);
@@ -65,6 +61,8 @@ t_tab			*double_tab_int(int fd, char *argv)
 		while (j < tab->size_hor)
 		{
 			tab->tab_int[i][j] = ft_atoi(tab_char[j]);
+			printf("---------------------------\n%i\n", tab->tab_int[i][j]);
+			printf("%i\n", ft_atoi(tab_char[j]));
 			j++;
 		}
 		i++;
@@ -85,18 +83,18 @@ int		count_tab(char **tmp)
 }
 */
 
-int			print_tab_int(int **tab_int)
+int			print_tab_int(t_tab *tab)
 {
 	int		i;
 	int		j;
 
 	j = 0;
-	while (j < 11)
+	while (j < tab->size_ver)
 	{
 		i = 0;
-		while (i < 19)
+		while (i < tab->size_hor)
 		{
-			ft_putnbr(tab_int[j][i]);
+			ft_putnbr(tab->tab_int[j][i]);
 			ft_putchar(' ');
 			i++;
 		}
@@ -113,9 +111,10 @@ t_tab		*read_file(char *argv)
 	
 	if ((fd = open(argv, O_RDONLY)) == -1)
 		return (0);
-	tab = double_tab_int(fd, argv);
+	if (!(tab = double_tab_int(fd, argv)))
+		return (0);
 //	double_tab_int(fd, argv, tab);
-	print_tab_int(tab->tab_int);
+	print_tab_int(tab);
 //	close(fd);
 	return (tab);
 }

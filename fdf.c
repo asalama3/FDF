@@ -6,7 +6,7 @@
 /*   By: asalama <asalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 18:06:13 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/12 13:53:04 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/12 18:50:30 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void		put_pixel(t_env *env, int x, int y)
 	env->addr[y * env->size_line + ++x] = 255;
 }
 
-void		draw_ver(t_tab *tab, t_env *env, t_coord *coord)
+void		draw_ver(t_env *env, int x, int y)
 {
 	int		i;
 
 	i = 0;
-	while (i < TARTE)
+	while (i < env->space)
 	{
-		put_pixel(env, coord->x1, coord->y1);
-		coord->y1++;
+		put_pixel(env, x, y);
+		y++;
 		i++;
 	}
 }
@@ -39,7 +39,6 @@ void		draw_line(t_env *env, t_coord *coord, t_tab *tab)
 	int			y;
 
 	a = 0;
-	//		printf("COORD \n");
 			printf("x1: %i\n", coord->x1);
 			printf("x2: %i\n", coord->x2);
 			printf("y1: %i\n", coord->y1);
@@ -57,7 +56,6 @@ void		draw_line(t_env *env, t_coord *coord, t_tab *tab)
 		put_pixel(env, x, y);
 		x++;
 	}
-	draw_ver(tab, env, coord);
 }
 
 void		tabtab(t_tab *tab, t_env *env)
@@ -82,14 +80,16 @@ void		tabtab(t_tab *tab, t_env *env)
 				printf("%i------%i\n", y, coord.y1);
 			if (i + 1 < tab->size_hor)
 			{
-				coord.x2 = x + 20;
+				coord.x2 = x + env->space;
 				coord.y2 = y - tab->tab_int[j][i + 1];
 				draw_line(env, &coord, tab);
 			}
-			x += TARTE;
+			if (j + 1 < tab->size_ver)
+				draw_ver(env, x, y);
+			x += env->space;;
 			i++;
 		}
-		y += TARTE;
+		y += env->space;
 		j++;
 	}
 }
