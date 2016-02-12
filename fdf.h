@@ -6,13 +6,12 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/11 17:39:13 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/12 13:52:57 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-
 
 #include "libft/libft.h"
 #include <fcntl.h>
@@ -20,6 +19,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+
+#define TARTE 20
 
 typedef struct		s_env
 {
@@ -47,11 +48,8 @@ typedef struct		s_coord
 {
 	int				x1;
 	int				x2;
-	int				tmp1;
-	int				tmp2;
 	int				y1;
 	int				y2;
-	int				boo;
 }					t_coord;
 
 
