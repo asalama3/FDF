@@ -13,7 +13,7 @@
 #include "fdf.h"
 #include <stdio.h>
 
-int		key_hook(int keycode, t_env *env)
+int		key_hook(int keycode, t_env *env, t_tab *tab)
 {
 	if (keycode == 53)
 		exit(-1);
@@ -28,7 +28,9 @@ int		key_hook(int keycode, t_env *env)
 	if (keycode == 78)
 		zoom_out(env);
 	if (keycode == 69)
-		zoom_in(env);
+		zoom_in(env, tab);
+    if (keycode == 15)
+        relief_z(env, tab);
 	printf("keycode %d\n", keycode);
 	return (0);
 }
@@ -39,15 +41,15 @@ int		draw_square(t_env *env)
 	int		y;
 
 	y = 0;
-	while (y < 1000)
+	while (y < 500)
 	{
 		x = 0;
 		while (x < 500)
 		{
 			// ENDIAN A 0 DONC LECTURE (alpha | RGB)<-
-			env->addr[y * env->size_line + x++] = 255; //BLEU
-			env->addr[y * env->size_line + x++] = 0; // VERT
+	    	env->addr[y * env->size_line + x++] = 255; // BLEU
 			env->addr[y * env->size_line + x++] = 100; //ROUGE
+	    	env->addr[y * env->size_line + x++] = 0; // VERT
 			env->addr[y * env->size_line + x++] = 200; //TRANSPARENCE
 		}
 		y++;
@@ -71,6 +73,7 @@ int		main(int argc, char **argv)
 		env.y = 0;
 		env.mlx = mlx_init();
 		env.space = 20;
+        env.z = 1;
 		env.win = mlx_new_window(env.mlx, 1000, 1000, "42");
 		env.img = mlx_new_image(env.mlx, 1000, 1000);
 		env.addr = mlx_get_data_addr(env.img, &env.bpp, &env.size_line, &env.endian);

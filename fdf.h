@@ -15,7 +15,7 @@
 
 #include "libft/libft.h"
 #include <fcntl.h>
-#include <mlx.h>
+#include "mlx.h"
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
@@ -33,6 +33,7 @@ typedef struct		s_env
 	int				bpp;
 	int				x;
 	int				y;
+    int             z;
 	int				space;
 }					t_env;
 
@@ -59,7 +60,7 @@ typedef struct		s_coord
 */
 
 t_tab				*read_file(char *argv);
-void				tabtab(t_tab *tab, t_env *env);
+void                tabtab(t_tab *tab, t_env *env);
 void				put_pixel(t_env *env, int x, int y);
 int					print_tab_int(t_tab *tab);
 void				move_right(t_env *env);
@@ -67,7 +68,8 @@ void				move_left(t_env *env);
 void				move_up(t_env *env);
 void				move_down(t_env *env);
 void				zoom_out(t_env *env);
-void				zoom_in(t_env *env);
+void				zoom_in(t_env *env, t_tab *tab);
+void				relief_z(t_env *env, t_tab *tab);
 #endif
 
 

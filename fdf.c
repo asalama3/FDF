@@ -75,13 +75,13 @@ void		tabtab(t_tab *tab, t_env *env)
 		while (i < tab->size_hor)
 		{
 			coord.x1 = x;
-			coord.y1 = y - tab->tab_int[j][i];
+			coord.y1 = y - (tab->tab_int[j][i] * env->z);
 			if (tab->tab_int[j][i] != 0)
 				printf("%i------%i\n", y, coord.y1);
 			if (i + 1 < tab->size_hor)
 			{
 				coord.x2 = x + env->space;
-				coord.y2 = y - tab->tab_int[j][i + 1];
+				coord.y2 = y - (tab->tab_int[j][i + 1] * env->z);
 				draw_line(env, &coord, tab);
 			}
 			if (j + 1 < tab->size_ver)

@@ -48,9 +48,20 @@ void		zoom_out(t_env *env)
 	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
 }
 
-void		zoom_in(t_env *env)	
+void		zoom_in(t_env *env, t_tab *tab)	
 {
 	env->space += 5;
 	mlx_clear_window(env->mlx, env->win);
-//	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
+	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
+printf("env space:%d\n", env->space);
+}
+
+void        relief_z(t_env *env, t_tab *tab)
+{
+	mlx_clear_window(env->mlx, env->win);
+	env->z += 1;@
+	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
+printf("env space:%d\n", env->z);
+printf("env space:%d\n", env->x);
+printf("env space:%d\n", env->y);
 }
