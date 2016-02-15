@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/12 18:50:25 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/15 13:33:03 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		key_hook(int keycode, t_env *env, t_tab *tab)
 	if (keycode == 69)
 		zoom_in(env, tab);
     if (keycode == 15)
-        relief_z(env, tab);
+        relief_z(env, env->tab);
 	printf("keycode %d\n", keycode);
 	return (0);
 }
@@ -73,7 +73,7 @@ int		main(int argc, char **argv)
 		env.y = 0;
 		env.mlx = mlx_init();
 		env.space = 20;
-        env.z = 1;
+   		env.z = 1;
 		env.win = mlx_new_window(env.mlx, 1000, 1000, "42");
 		env.img = mlx_new_image(env.mlx, 1000, 1000);
 		env.addr = mlx_get_data_addr(env.img, &env.bpp, &env.size_line, &env.endian);
@@ -83,6 +83,7 @@ int		main(int argc, char **argv)
 //		draw_square(&env);
 		tabtab(tab, &env);
 		mlx_put_image_to_window(env.mlx, env.win, env.img, env.x, env.y);
+		env.tab = tab;
 		mlx_key_hook(env.win, key_hook, &env);
 		mlx_loop(env.mlx);
 	}

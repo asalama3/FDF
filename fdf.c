@@ -6,7 +6,7 @@
 /*   By: asalama <asalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 18:06:13 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/12 18:50:30 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/15 13:32:58 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void		tabtab(t_tab *tab, t_env *env)
 
 	y = 100;
 	j = 0;
+	printf("PTR = %p && size_ver = %d\n", tab, tab->size_ver);
+//	ft_putnbr(tab->size_ver);
 	while (j < tab->size_ver)
 	{
 		x = 100;
@@ -75,9 +77,11 @@ void		tabtab(t_tab *tab, t_env *env)
 		while (i < tab->size_hor)
 		{
 			coord.x1 = x;
+			//ft_putnbr(env->z);
 			coord.y1 = y - (tab->tab_int[j][i] * env->z);
-			if (tab->tab_int[j][i] != 0)
-				printf("%i------%i\n", y, coord.y1);
+				printf("Z:%i\n", env->z);
+	//		if (tab->tab_int[j][i] != 0)
+	//			printf("%i------%i\n", y, coord.y1);
 			if (i + 1 < tab->size_hor)
 			{
 				coord.x2 = x + env->space;
@@ -86,7 +90,7 @@ void		tabtab(t_tab *tab, t_env *env)
 			}
 			if (j + 1 < tab->size_ver)
 				draw_ver(env, x, y);
-			x += env->space;;
+			x += env->space;
 			i++;
 		}
 		y += env->space;

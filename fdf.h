@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/12 18:50:27 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/15 13:20:49 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@
 
 #define SPACE 20
 
+typedef struct		s_tab
+{
+	int				**tab_int;
+	int				size_hor;
+	int				size_ver;
+
+}					t_tab;
+
 typedef struct		s_env
 {
 	void			*mlx;
@@ -35,16 +43,8 @@ typedef struct		s_env
 	int				y;
     int             z;
 	int				space;
+	t_tab			*tab;
 }					t_env;
-
-
-typedef struct		s_tab
-{
-	int				**tab_int;
-	int				size_hor;
-	int				size_ver;
-
-}					t_tab;
 
 typedef struct		s_coord
 {
