@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/15 13:33:03 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/15 16:55:11 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		key_hook(int keycode, t_env *env, t_tab *tab)
 		zoom_in(env, tab);
     if (keycode == 15)
         relief_z(env, env->tab);
+	if (keycode == 17)
+		relief_z2(env, env->tab);
 	printf("keycode %d\n", keycode);
 	return (0);
 }

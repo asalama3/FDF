@@ -6,7 +6,7 @@
 /*   By: asalama <asalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:56:17 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/15 13:31:35 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/15 16:55:17 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,14 @@ void        relief_z(t_env *env, t_tab *tab)
 	tabtab(tab, env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
 //printf("z:%d\n", env->z);
+}
+
+void        relief_z2(t_env *env, t_tab *tab)
+{
+	mlx_clear_window(env->mlx, env->win);
+	mlx_destroy_image(env->mlx, env->img);
+	env->img = mlx_new_image(env->mlx, 1000, 1000);
+	env->z -= 5;
+	tabtab(tab, env);
+	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
 }

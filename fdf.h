@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/15 13:20:49 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/15 16:55:22 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void				move_down(t_env *env);
 void				zoom_out(t_env *env);
 void				zoom_in(t_env *env, t_tab *tab);
 void				relief_z(t_env *env, t_tab *tab);
+void				relief_z2(t_env *env, t_tab *tab);
 #endif
 
 
