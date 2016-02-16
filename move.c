@@ -6,7 +6,7 @@
 /*   By: asalama <asalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:56:17 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/15 16:55:17 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/16 19:53:39 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,26 @@ void		move_down(t_env *env)
 	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
 }
 
-void		zoom_out(t_env *env)	
+void		zoom_out(t_env *env, t_tab *tab)	
 {
 	mlx_clear_window(env->mlx, env->win);
+//	mlx_destroy_image(env->mlx, env->img);
 	env->space -= 5;
-//	tabtab(tab, env);
+	tabtab(tab, env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
 }
 
 void		zoom_in(t_env *env, t_tab *tab)	
 {
 	mlx_clear_window(env->mlx, env->win);
+//	mlx_destroy_image(env->mlx, env->img);
 	env->space += 5;
 	tabtab(tab, env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
 printf("env space:%d\n", env->space);
 }
 
-void        relief_z(t_env *env, t_tab *tab)
+void        relief_z_up(t_env *env, t_tab *tab)
 {
 	mlx_clear_window(env->mlx, env->win);
 	mlx_destroy_image(env->mlx, env->img);
@@ -68,7 +70,7 @@ void        relief_z(t_env *env, t_tab *tab)
 //printf("z:%d\n", env->z);
 }
 
-void        relief_z2(t_env *env, t_tab *tab)
+void        relief_z_down(t_env *env, t_tab *tab)
 {
 	mlx_clear_window(env->mlx, env->win);
 	mlx_destroy_image(env->mlx, env->img);

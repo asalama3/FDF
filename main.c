@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/15 16:55:11 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/16 18:48:28 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int		key_hook(int keycode, t_env *env, t_tab *tab)
 	if (keycode == 125)
 		move_down(env);
 	if (keycode == 78)
-		zoom_out(env);
+		zoom_out(env, env->tab);
 	if (keycode == 69)
-		zoom_in(env, tab);
+		zoom_in(env, env->tab);
     if (keycode == 15)
-        relief_z(env, env->tab);
+        relief_z_up(env, env->tab);
 	if (keycode == 17)
-		relief_z2(env, env->tab);
+		relief_z_down(env, env->tab);
 	printf("keycode %d\n", keycode);
 	return (0);
 }
@@ -69,7 +69,7 @@ int		main(int argc, char **argv)
 	if (argc == 2)
 	{
 		if (!(tab = read_file(argv[1])))
-			return (-1);
+			return (0);
 //		print_tab_int(tab->tab_int);
 		env.x = 0;
 		env.y = 0;

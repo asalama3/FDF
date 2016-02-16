@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/15 16:55:22 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/16 18:48:28 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 #include <stdio.h>
 
 #define SPACE 20
+#define RX 1
+#define RY 1
+#define RZ 0
+#define IX 1
+#define IY (-1)
+#define IZ 1
 
 typedef struct		s_tab
 {
@@ -67,10 +73,10 @@ void				move_right(t_env *env);
 void				move_left(t_env *env);
 void				move_up(t_env *env);
 void				move_down(t_env *env);
-void				zoom_out(t_env *env);
+void				zoom_out(t_env *env, t_tab *tab);
 void				zoom_in(t_env *env, t_tab *tab);
-void				relief_z(t_env *env, t_tab *tab);
-void				relief_z2(t_env *env, t_tab *tab);
+void				relief_z_up(t_env *env, t_tab *tab);
+void				relief_z_down(t_env *env, t_tab *tab);
 #endif
 
 
