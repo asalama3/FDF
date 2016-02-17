@@ -59,6 +59,15 @@ int		draw_square(t_env *env)
 	return (0);
 }
 
+/*
+void    image(t_env *env, t_tab *tab)
+{
+    env->img = mlx_new_image(env->mlx, 1000, 1000);
+	env->addr = mlx_get_data_addr(env->img, &env->bpp, &env->size_line, &env->endian);
+	tabtab(tab, env);
+	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
+}
+*/
 int		main(int argc, char **argv)
 {
 	t_env	env;
@@ -87,6 +96,7 @@ int		main(int argc, char **argv)
 		mlx_put_image_to_window(env.mlx, env.win, env.img, env.x, env.y);
 		env.tab = tab;
 		mlx_key_hook(env.win, key_hook, &env);
+//        SDL_EnableKeyRepeat(10, 10);
 		mlx_loop(env.mlx);
 	}
 	return (0);

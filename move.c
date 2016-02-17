@@ -52,7 +52,8 @@ void		zoom_out(t_env *env, t_tab *tab)
 void		zoom_in(t_env *env, t_tab *tab)	
 {
 	mlx_clear_window(env->mlx, env->win);
-//	mlx_destroy_image(env->mlx, env->img);
+	mlx_destroy_image(env->mlx, env->img);
+	env->img = mlx_new_image(env->mlx, 1000, 1000);
 	env->space += 5;
 	tabtab(tab, env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
@@ -63,8 +64,9 @@ void        relief_z_up(t_env *env, t_tab *tab)
 {
 	mlx_clear_window(env->mlx, env->win);
 	mlx_destroy_image(env->mlx, env->img);
-	env->img = mlx_new_image(env->mlx, 1000, 1000);
+//	env->img = mlx_new_image(env->mlx, 1000, 1000);
 	env->z += 5;
+//    image(env, tab);
 	tabtab(tab, env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
 //printf("z:%d\n", env->z);
@@ -74,7 +76,7 @@ void        relief_z_down(t_env *env, t_tab *tab)
 {
 	mlx_clear_window(env->mlx, env->win);
 	mlx_destroy_image(env->mlx, env->img);
-	env->img = mlx_new_image(env->mlx, 1000, 1000);
+//	env->img = mlx_new_image(env->mlx, 1000, 1000);
 	env->z -= 5;
 	tabtab(tab, env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);

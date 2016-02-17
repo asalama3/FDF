@@ -31,6 +31,39 @@ void		draw_ver(t_env *env, int x, int y)
 	}
 }
 
+
+void		draw_line(t_env *env, t_coord *coord, t_tab *tab)
+{
+	double 		a;
+	double		x;
+	double		y;
+    double      dx;
+    double      dy;
+    int         i;
+
+    i = 0;
+    if(abs(coord->x2 - coord->x1) >= abs(coord->y2 - coord->y1))
+        a = abs(coord->x2 - coord->x1);
+    else
+        a = abs(coord->y2 - coord->y1);
+    if (a)
+    {
+        dx = (coord->x2 - coord->x1) / a;
+        dy = (coord->y2 - coord->y1) / a;
+	}
+    x = coord->x1;
+    y = coord->y1;
+
+    while (i < a)
+    {
+        put_pixel(env, x, y);
+        x += dx;
+        y += dy;
+        i++;
+	}
+}
+
+/*
 void		draw_line(t_env *env, t_coord *coord, t_tab *tab)
 {
 	double 		a;
@@ -57,7 +90,7 @@ void		draw_line(t_env *env, t_coord *coord, t_tab *tab)
 		x++;
 	}
 }
-/*
+
 void		calcul(t_coord *coord, t_tab *tab, int i, int j, int x, int y, t_env *env)
 {
 	coord->x1 = (x * RX) + (y * RY) + (tab->tab_int[j][i] * RZ);
@@ -90,9 +123,9 @@ void		calcul2(t_coord *coord, t_tab *tab, t_env *env, int i, int j, int x, int y
 	float	b = M_PI * 220 / 180;
 
 	coord->x1 = 100 + env->space * (cos(a) * i + sin(a) * j);
-	coord->y1 = 300 + env->space * (sin(b) * (sin(a) * i - cos(a) * j) + cos(b) * tab->tab_int[j][i]);
+	coord->y1 = 300 + env->space * (sin(b) * (sin(a) * i - cos(a) * j) + cos(b) * (tab->tab_int[j][i] * env->z));
 	coord->x2 = 100 + env->space * (cos(a) * (i) + sin(a) * (j + 1));
-	coord->y2 = 300 + env->space * (sin(b) * (sin(a) * (i) - cos(a) * (j + 1)) + cos(b) * tab->tab_int[j + 1][i]);
+	coord->y2 = 300 + env->space * (sin(b) * (sin(a) * (i) - cos(a) * (j + 1)) + cos(b) * (tab->tab_int[j + 1][i] * env->z));
 }
 
 

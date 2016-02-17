@@ -19,6 +19,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+//#include <sdl.h>
+
 
 #define SPACE 20
 #define RX 1
@@ -61,10 +63,6 @@ typedef struct		s_coord
 }					t_coord;
 
 
-/*
-** READ
-*/
-
 t_tab				*read_file(char *argv);
 void                tabtab(t_tab *tab, t_env *env);
 void				put_pixel(t_env *env, int x, int y);
@@ -77,6 +75,7 @@ void				zoom_out(t_env *env, t_tab *tab);
 void				zoom_in(t_env *env, t_tab *tab);
 void				relief_z_up(t_env *env, t_tab *tab);
 void				relief_z_down(t_env *env, t_tab *tab);
+void				image(t_env *env, t_tab *tab);
 #endif
 
 
