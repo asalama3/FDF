@@ -61,8 +61,8 @@ t_tab			*double_tab_int(int fd, char *argv)
 		while (j < tab->size_hor)
 		{
 			tab->tab_int[i][j] = ft_atoi(tab_char[j]);
-			printf("---------------------------\n%i\n", tab->tab_int[i][j]);
-			printf("%i\n", ft_atoi(tab_char[j]));
+//			printf("---------------------------\n%i\n", tab->tab_int[i][j]);
+//			printf("%i\n", ft_atoi(tab_char[j]));
 			j++;
 		}
 		i++;
