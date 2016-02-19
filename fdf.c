@@ -12,10 +12,33 @@
 
 #include "fdf.h"
 
-void		put_pixel(t_env *env, int x, int y)
+void		put_pixel(t_env *env, int x, int y, t_tab *tab)
 {
-	x *= 4;
-	env->addr[y * env->size_line + ++x] = 255;
+    int     i;
+    int     j;
+
+    j = 0;
+    while (j < tab->size_ver)
+    {
+        i = 0;
+//        x *= 4;
+        while (i < tab->size_hor)
+        {
+    //    x *= 4;
+    //	    env->addr[y * env->size_line + x] = 255;
+	    if (tab->tab_int[j][i] == 0)
+	 //       env->addr[y * env->size_line + x] = 255;
+            mlx_pixel_put(env->mlx, env->win, x, y, 0xff0000);
+	    else if (tab->tab_int[j][i] < 0)
+	//        env->addr[y * env->size_line + ++x] = 255;
+            mlx_pixel_put(env->mlx, env->win, x, y, 0x8B0000);
+        else
+//	        env->addr[y * env->size_line + x] = 200;
+            mlx_pixel_put(env->mlx, env->win, x, y, 0x9ACD32);
+        i++;
+        }
+    j++;
+    }    
 }
 
 /*
@@ -57,7 +80,7 @@ void		draw_line(t_env *env, t_coord *coord, t_tab *tab)
 
     while (i < a)
     {
-        put_pixel(env, x, y);
+        put_pixel(env, x, y, tab);
         x += dx;
         y += dy;
         i++;

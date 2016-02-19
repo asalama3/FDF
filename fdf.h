@@ -83,7 +83,7 @@ typedef struct		s_coord
 
 t_tab				*read_file(char *argv);
 void                tabtab(t_tab *tab, t_env *env, t_angle *angle);
-void				put_pixel(t_env *env, int x, int y);
+void				put_pixel(t_env *env, int x, int y, t_tab *tab);
 int					print_tab_int(t_tab *tab);
 void				move_right(t_env *env);
 void				move_left(t_env *env);
