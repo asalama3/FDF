@@ -6,7 +6,7 @@
 /*   By: asalama <asalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 18:06:13 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/19 14:43:58 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/21 15:20:03 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 
 void		put_pixel(t_env *env, int x, int y, t_tab *tab, int i, int j)
 {
+
+  //  printf("z:%d", i);
     x *= 4;
-    //	    env->addr[y * env->size_line + x] = 255;
+    if (y <= HEIGHT && x <= env->size_line)
+    {
 	    if (tab->tab_int[j][i] == 0)
 	        env->addr[y * env->size_line + x] = 255;
-    //        mlx_pixel_put(env->mlx, env->win, x, y, 0xff0000);
-	    else if (tab->tab_int[j][i] > 0)
-	        env->addr[y * env->size_line + x++] = 255;
-      //      mlx_pixel_put(env->mlx, env->win, x, y, 0x8B0000);
-        else
-     //       mlx_pixel_put(env->mlx, env->win, x, y, 0x8B0000);
-           env->addr[y * env->size_line + x] = 255;
+        else if (tab->tab_int[j][i] > 0)
+	        env->addr[y * env->size_line + ++x] = 255;
+        else 
+            env->addr[y * env->size_line + ++x] = 0;
+    }
+    // mlx_pixel_put(env->mlx, env->win, x, y, 0x8B0000);
 }
 /*
 void		draw_ver(t_env *env, int x, int y)
@@ -50,7 +52,7 @@ void		draw_line(t_env *env, t_coord *coord, t_tab *tab, int i, int j)
     double      dy;
     int         k;
 
-    i = 0;
+    k = 0;
     if(abs(coord->x2 - coord->x1) >= abs(coord->y2 - coord->y1))
         a = abs(coord->x2 - coord->x1);
     else
@@ -62,10 +64,10 @@ void		draw_line(t_env *env, t_coord *coord, t_tab *tab, int i, int j)
 	}
     x = coord->x1;
     y = coord->y1;
-
+printf("%d\n", i);
     while (k < a)
     {
-        put_pixel(env, x, y, tab, i, j);
+        put_pixel(env, x, y, tab, i , j);
         x += dx;
         y += dy;
         k++;
@@ -99,12 +101,12 @@ void		tabtab(t_tab *tab, t_env *env, t_angle *angle)
 	int			y;
 	t_coord		coord;
 
-	y = 100;
+	y = 300;
 	j = 0;
-	printf("PTR = %p && size_ver = %d\n", tab, tab->size_ver);
+//	printf("PTR = %p && size_ver = %d\n", tab, tab->size_ver);
 	while (j < tab->size_ver)
 	{
-		x = 50;
+		x = 100;
 		i = 0;
 		while (i < tab->size_hor)
 		{
@@ -112,6 +114,7 @@ void		tabtab(t_tab *tab, t_env *env, t_angle *angle)
 			if (i + 1 < tab->size_hor)
 			{
 				draw_line(env, &coord, tab, i, j);
+                printf("%i\n", i);
 			}
 			if (j + 1 < tab->size_ver)
 			{	

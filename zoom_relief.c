@@ -17,7 +17,7 @@ void		zoom_in(t_env *env, t_tab *tab, t_angle *angle)
 	mlx_clear_window(env->mlx, env->win);
 	mlx_destroy_image(env->mlx, env->img);
 	env->space += ZOOM;
-	image(env, tab, angle);
+    image(env, tab, angle);
 //    printf("env space:%d\n", env->space);
 }
 
@@ -26,6 +26,8 @@ void		zoom_out(t_env *env, t_tab *tab, t_angle *angle)
 	mlx_clear_window(env->mlx, env->win);
 	mlx_destroy_image(env->mlx, env->img);
 	env->space -= ZOOM;
+	if (env->space < 0)
+        env->space = 1;
 	image(env, tab, angle);
   //  printf("env->space:%d\n", env->space);
 }
@@ -46,7 +48,7 @@ void        relief_z_up(t_env *env, t_tab *tab, t_angle *angle)
         {
             if (tab->tab_int[j][i] != '\0')
                 tab->tab_int[j][i] += RELIEF;
-                printf("%i\n", tab->tab_int[j][i]);
+//                printf("%i\n", tab->tab_int[j][i]);
             i++;
         }
         j++;
@@ -71,7 +73,7 @@ void        relief_z_down(t_env *env, t_tab *tab, t_angle *angle)
         {
             if (tab->tab_int[j][i] != '\0')
                 tab->tab_int[j][i] -= RELIEF;
-                printf("%i\n", tab->tab_int[j][i]);
+  //              printf("%i\n", tab->tab_int[j][i]);
             i++;
         }
         j++;

@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/19 14:44:00 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/21 13:55:31 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int		draw_square(t_env *env)
 		{
 			// ENDIAN A 0 DONC LECTURE (alpha | RGB)<-
 	    	env->addr[y * env->size_line + x++] = 255; // BLEU
-			env->addr[y * env->size_line + x++] = 100; //ROUGE
-	    	env->addr[y * env->size_line + x++] = 0; // VERT
-			env->addr[y * env->size_line + x++] = 200; //TRANSPARENCE
+			env->addr[y * env->size_line + x++] = 255; //ROUGE
+	    	env->addr[y * env->size_line + x++] = 255; // VERT
+			env->addr[y * env->size_line + x++] = 0; //TRANSPARENCE
 		}
 		y++;
 	}
@@ -88,8 +88,8 @@ int		main(int argc, char **argv)
 		if (!(tab = read_file(argv[1])))
 			return (0);
 //		print_tab_int(tab->tab_int);
-		env.x = 100;
-		env.y = 100;
+		env.x = 0;
+		env.y = 0;
         angle.a = 220 * M_PI / 180;
         angle.b = 20 * M_PI / 180;
 		env.mlx = mlx_init();
