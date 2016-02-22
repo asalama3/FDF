@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/21 13:55:31 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/22 18:46:56 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,19 @@ void    image(t_env *env, t_tab *tab, t_angle *angle)
     ft_putstr("OKAY");
     env->img = mlx_new_image(env->mlx, WIDTH, HEIGHT);
 	env->addr = mlx_get_data_addr(env->img, &env->bpp, &env->size_line, &env->endian);
-		printf("SL2 : %i\n", env->size_line);
-		printf("BPP2 : %i\n", env->bpp);
-		printf("ENDIAN2 : %i\n", env->endian);
+//		printf("SL2 : %i\n", env->size_line);
+//		printf("BPP2 : %i\n", env->bpp);
+//		printf("ENDIAN2 : %i\n", env->endian);
 	tabtab(tab, env, angle);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, env->x, env->y);
+}
+
+
+int        key(t_env *env)
+{
+    mlx_do_key_autorepeaton(env->mlx);
+  //  key_hook(env);
+    return (0);
 }
 
 int		main(int argc, char **argv)
@@ -98,17 +106,18 @@ int		main(int argc, char **argv)
 		env.win = mlx_new_window(env.mlx, SIZE_X, SIZE_Y, "42");
 		env.img = mlx_new_image(env.mlx, WIDTH, HEIGHT);
 		env.addr = mlx_get_data_addr(env.img, &env.bpp, &env.size_line, &env.endian);
-		printf("SL : %i\n", env.size_line);
 		printf("BPP : %i\n", env.bpp);
+      //  mlx_do_key_autorepeaton(env.mlx);
+        printf("SL : %i\n", env.size_line);
 		printf("ENDIAN : %i\n", env.endian);
 //		draw_square(&env);
 		tabtab(tab, &env, &angle);
 		mlx_put_image_to_window(env.mlx, env.win, env.img, env.x, env.y);
 		env.tab = tab;
         env.angle = &angle;
-		mlx_key_hook(env.win, key_hook, &env);
-//        SDL_EnableKeyRepeat(10, 10);
-		mlx_loop(env.mlx);
+//		mlx_key_hook(env.win, key_hook, &env);
+		mlx_key_hook(env.win, key, &env);
+        mlx_loop(env.mlx);
 	}
 	return (0);
 }

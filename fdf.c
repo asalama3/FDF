@@ -6,7 +6,7 @@
 /*   By: asalama <asalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 18:06:13 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/21 15:20:03 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/22 18:47:05 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@ void		put_pixel(t_env *env, int x, int y, t_tab *tab, int i, int j)
 
   //  printf("z:%d", i);
     x *= 4;
-    if (y <= HEIGHT && x <= env->size_line)
+    if (y < HEIGHT && x < (env->size_line - 3))
     {
 	    if (tab->tab_int[j][i] == 0)
 	        env->addr[y * env->size_line + x] = 255;
         else if (tab->tab_int[j][i] > 0)
 	        env->addr[y * env->size_line + ++x] = 255;
         else 
-            env->addr[y * env->size_line + ++x] = 0;
+            env->addr[y * env->size_line + ++x] = 200;
     }
-    // mlx_pixel_put(env->mlx, env->win, x, y, 0x8B0000);
 }
 /*
 void		draw_ver(t_env *env, int x, int y)
@@ -74,7 +73,7 @@ printf("%d\n", i);
 	}
 }
 
-void		calcul(t_coord *coord, t_tab *tab, t_env *env, int i, int j, int x, int y, t_angle *angle)
+void		calcul(t_coord *coord, t_tab *tab, t_env *env, int i, int j, t_angle *angle)
 {
 
 	coord->x1 = 100 + env->space * (cos(angle->b) * i + sin(angle->b) * j);
@@ -83,7 +82,7 @@ void		calcul(t_coord *coord, t_tab *tab, t_env *env, int i, int j, int x, int y,
 	coord->y2 = 300 + env->space * (sin(angle->a) * (sin(angle->b) * (i + 1) - cos(angle->b) * j) + cos(angle->a) * tab->tab_int[j][i + 1]);
 }
 
-void		calcul2(t_coord *coord, t_tab *tab, t_env *env, int i, int j, int x, int y, t_angle *angle)
+void		calcul2(t_coord *coord, t_tab *tab, t_env *env, int i, int j, t_angle *angle)
 {
 
 	coord->x1 = 100 + env->space * (cos(angle->b) * i + sin(angle->b) * j);
@@ -91,8 +90,23 @@ void		calcul2(t_coord *coord, t_tab *tab, t_env *env, int i, int j, int x, int y
 	coord->x2 = 100 + env->space * (cos(angle->b) * (i) + sin(angle->b) * (j + 1));
 	coord->y2 = 300 + env->space * (sin(angle->a) * (sin(angle->b) * (i) - cos(angle->b) * (j + 1)) + cos(angle->a) * tab->tab_int[j + 1][i]);
 }
+/*
+void		calcul(t_coord *coord, t_tab *tab, t_env *env, int i, int j, t_angle *angle)
+{
+	coord->x1 = 200 + env->space * ((sqrtf(2) / 2) * i - ((sqrtf(2) / 2) * j));
+	coord->y1 = 300 + env->space * (((1 / sqrtf(6)) * (i + j)) - ((sqrtf(2 / sqrtf(3))) * tab->tab_int[j][i]));
+	coord->x2 = 200 + env->space * ((sqrtf(2) / 2) * (i + 1) - ((sqrtf(2) / 2) * j));
+	coord->y2 = 300 + env->space * (((1 / sqrtf(6)) * ((i + 1) + j)) - ((sqrtf(2 / sqrtf(3))) * tab->tab_int[j][i + 1]));
+}
 
-
+void		calcul2(t_coord *coord, t_tab *tab, t_env *env, int i, int j, t_angle *angle)
+{
+	coord->x1 = 200 + env->space * ((sqrtf(2) / 2) * i - ((sqrtf(2) / 2) * j));
+	coord->y1 = 300 + env->space * (((1 / sqrtf (6)) * (i + j)) - ((sqrtf(2 / sqrtf(3))) * tab->tab_int[j][i]));
+	coord->x2 = 200 + env->space * ((sqrtf(2) / 2) * i - ((sqrtf(2) / 2) * (j + 1)));
+	coord->y2 = 300 + env->space * (((1 / sqrtf (6)) * (i + (j + 1))) - ((sqrtf(2 / sqrtf(3))) * tab->tab_int[j + 1][i]));
+}
+*/
 void		tabtab(t_tab *tab, t_env *env, t_angle *angle)
 {
 	int			i;
@@ -101,16 +115,14 @@ void		tabtab(t_tab *tab, t_env *env, t_angle *angle)
 	int			y;
 	t_coord		coord;
 
-	y = 300;
 	j = 0;
 //	printf("PTR = %p && size_ver = %d\n", tab, tab->size_ver);
 	while (j < tab->size_ver)
 	{
-		x = 100;
 		i = 0;
 		while (i < tab->size_hor)
 		{
-			calcul(&coord, tab, env, i, j, x, y, angle);
+			calcul(&coord, tab, env, i, j, angle);
 			if (i + 1 < tab->size_hor)
 			{
 				draw_line(env, &coord, tab, i, j);
@@ -118,7 +130,7 @@ void		tabtab(t_tab *tab, t_env *env, t_angle *angle)
 			}
 			if (j + 1 < tab->size_ver)
 			{	
-				calcul2(&coord, tab, env, i, j, x, y, angle);
+				calcul2(&coord, tab, env, i, j, angle);
 //				draw_ver(env, x, y);
 				draw_line(env, &coord, tab, i, j);
 			}

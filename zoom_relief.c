@@ -6,7 +6,7 @@
 /*   By: asalama <asalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 14:56:17 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/19 14:44:05 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/22 18:47:05 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void        relief_z_up(t_env *env, t_tab *tab, t_angle *angle)
     int     i;
     int     j;
 
-    ft_putstr("OK\n");
 	mlx_clear_window(env->mlx, env->win);
 	mlx_destroy_image(env->mlx, env->img);
 	j = 0;
@@ -62,7 +61,6 @@ void        relief_z_down(t_env *env, t_tab *tab, t_angle *angle)
     int     i;
     int     j;
 
-    ft_putstr("OK\n");
 	mlx_clear_window(env->mlx, env->win);
 	mlx_destroy_image(env->mlx, env->img);
 	j = 0;

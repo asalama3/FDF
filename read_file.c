@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 19:24:42 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/16 14:13:24 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/22 11:17:28 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			check_line(char *line)
 	return (1);
 }
 
-t_tab			*double_tab_int(int fd, char *argv)
+t_tab		*double_tab_int(int fd, char *argv)
 {
 	int		i;
 	t_tab	*tab;
@@ -67,21 +67,9 @@ t_tab			*double_tab_int(int fd, char *argv)
 		}
 		i++;
 	}
-		close(fd);
+	close(fd);
 	return (tab);
 }
-
-/*compte le nombre de ligne dans mon fichier
-int		count_tab(char **tmp)
-{
-	int		i;
-
-	i = 0;
-	while (tmp[i] != NULL)
-		i++;
-	return (i);
-}
-*/
 
 int			print_tab_int(t_tab *tab)
 {
@@ -108,20 +96,12 @@ t_tab		*read_file(char *argv)
 {
 	int		fd;
 	t_tab	*tab;
-	
+
 	if ((fd = open(argv, O_RDONLY)) == -1)
 		return (0);
 	if (!(tab = double_tab_int(fd, argv)))
 		return (0);
-//	double_tab_int(fd, argv, tab);
 	print_tab_int(tab);
 //	close(fd);
 	return (tab);
 }
-/*
-int		main(int argc, char **argv)
-{
-	if (argc == 2)
-		read_file(argv[1]);
-	return (0);
-}*/
