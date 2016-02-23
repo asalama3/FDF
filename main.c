@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/22 18:46:56 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/23 12:43:16 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,12 @@ int		key_hook(int keycode, t_env *env)
 		relief_z_down(env, env->tab, env->angle);
 	if (keycode == 49) // espace
 		rotate_1(env, env->tab, env->angle);
-	if (keycode == 31) // o
+	if (keycode == 6) // z
 		rotate_2(env, env->tab, env->angle);
+	if (keycode == 34) // i
+		iso(env, env->tab, env->angle);
+	if (keycode == 31) // o
+		ortho(env, env->tab, env->angle);
 	printf("keycode %d\n", keycode);
 	return (0);
 }
@@ -87,8 +91,8 @@ int		main(int argc, char **argv)
 {
 	t_env	env;
 	t_tab	*tab;
-	int		fd;
-	char	**tab_int;
+//	int		fd;
+//	char	**tab_int;
     t_angle angle;
 
 	if (argc == 2)
@@ -102,12 +106,11 @@ int		main(int argc, char **argv)
         angle.b = 20 * M_PI / 180;
 		env.mlx = mlx_init();
 		env.space = 20;
-//   	env.z = 1;
+        env.pro = 1;
 		env.win = mlx_new_window(env.mlx, SIZE_X, SIZE_Y, "42");
 		env.img = mlx_new_image(env.mlx, WIDTH, HEIGHT);
 		env.addr = mlx_get_data_addr(env.img, &env.bpp, &env.size_line, &env.endian);
 		printf("BPP : %i\n", env.bpp);
-      //  mlx_do_key_autorepeaton(env.mlx);
         printf("SL : %i\n", env.size_line);
 		printf("ENDIAN : %i\n", env.endian);
 //		draw_square(&env);
@@ -116,7 +119,8 @@ int		main(int argc, char **argv)
 		env.tab = tab;
         env.angle = &angle;
 //		mlx_key_hook(env.win, key_hook, &env);
-		mlx_key_hook(env.win, key, &env);
+		//mlx_key_hook(env.win, key, &env);
+        mlx_hook(env.win, KEYPRESS, KEYPRESSMASK, key_hook ,&env);
         mlx_loop(env.mlx);
 	}
 	return (0);

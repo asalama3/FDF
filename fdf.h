@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/22 18:47:05 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/23 12:33:57 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@
 #define IY (-1)
 #define IZ 1
 
+#define KEYPRESS 2
+#define KEYPRESSMASK 1
+
 typedef struct		s_tab
 {
 	int				**tab_int;
@@ -66,7 +69,7 @@ typedef struct		s_env
 	int				bpp;
 	int				x;
 	int				y;
-    int             z;
+    int             pro;
 	int				space;
     t_tab			*tab;
     t_angle         *angle;
@@ -96,6 +99,14 @@ void				relief_z_down(t_env *env, t_tab *tab, t_angle *angle);
 void				rotate_1(t_env *env, t_tab *tab, t_angle *angle);
 void				rotate_2(t_env *env, t_tab *tab, t_angle *angle);
 void				image(t_env *env, t_tab *tab, t_angle *angle);
+void                ortho_hor(t_coord *coord, t_tab *tab, t_env *env, int i, int j, t_angle *angle);
+void                ortho_ver(t_coord *coord, t_tab *tab, t_env *env, int i, int j, t_angle *angle);
+void                iso_hor(t_coord *coord, t_tab *tab, t_env *env, int i, int j);
+void                iso_ver(t_coord *coord, t_tab *tab, t_env *env, int i, int j);
+void                ortho(t_env *env, t_tab *tab, t_angle *angle);
+void                iso(t_env *env, t_tab *tab, t_angle *angle);
+
+
 #endif
 
 

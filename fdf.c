@@ -6,7 +6,7 @@
 /*   By: asalama <asalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 18:06:13 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/22 18:47:05 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/23 12:43:16 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		put_pixel(t_env *env, int x, int y, t_tab *tab, int i, int j)
 
   //  printf("z:%d", i);
     x *= 4;
-    if (y < HEIGHT && x < (env->size_line - 3))
+    if (y >= 0 && y < HEIGHT && x >= 0 && x < (env->size_line))
     {
 	    if (tab->tab_int[j][i] == 0)
 	        env->addr[y * env->size_line + x] = 255;
@@ -27,20 +27,6 @@ void		put_pixel(t_env *env, int x, int y, t_tab *tab, int i, int j)
             env->addr[y * env->size_line + ++x] = 200;
     }
 }
-/*
-void		draw_ver(t_env *env, int x, int y)
-{
-	int		i;
-
-	i = 0;
-	while (i < env->space)
-	{
-		put_pixel(env, x, y);
-		y++;
-		i++;
-	}
-}
-*/
 
 void		draw_line(t_env *env, t_coord *coord, t_tab *tab, int i, int j)
 {
@@ -73,46 +59,12 @@ printf("%d\n", i);
 	}
 }
 
-void		calcul(t_coord *coord, t_tab *tab, t_env *env, int i, int j, t_angle *angle)
-{
-
-	coord->x1 = 100 + env->space * (cos(angle->b) * i + sin(angle->b) * j);
-	coord->y1 = 300 + env->space * (sin(angle->a) * (sin(angle->b) * i - cos(angle->b) * j) + cos(angle->a) * tab->tab_int[j][i]);
-	coord->x2 = 100 + env->space * (cos(angle->b) * (i + 1) + sin(angle->b) * j);
-	coord->y2 = 300 + env->space * (sin(angle->a) * (sin(angle->b) * (i + 1) - cos(angle->b) * j) + cos(angle->a) * tab->tab_int[j][i + 1]);
-}
-
-void		calcul2(t_coord *coord, t_tab *tab, t_env *env, int i, int j, t_angle *angle)
-{
-
-	coord->x1 = 100 + env->space * (cos(angle->b) * i + sin(angle->b) * j);
-	coord->y1 = 300 + env->space * (sin(angle->a) * (sin(angle->b) * i - cos(angle->b) * j) + cos(angle->a) * tab->tab_int[j][i]);
-	coord->x2 = 100 + env->space * (cos(angle->b) * (i) + sin(angle->b) * (j + 1));
-	coord->y2 = 300 + env->space * (sin(angle->a) * (sin(angle->b) * (i) - cos(angle->b) * (j + 1)) + cos(angle->a) * tab->tab_int[j + 1][i]);
-}
-/*
-void		calcul(t_coord *coord, t_tab *tab, t_env *env, int i, int j, t_angle *angle)
-{
-	coord->x1 = 200 + env->space * ((sqrtf(2) / 2) * i - ((sqrtf(2) / 2) * j));
-	coord->y1 = 300 + env->space * (((1 / sqrtf(6)) * (i + j)) - ((sqrtf(2 / sqrtf(3))) * tab->tab_int[j][i]));
-	coord->x2 = 200 + env->space * ((sqrtf(2) / 2) * (i + 1) - ((sqrtf(2) / 2) * j));
-	coord->y2 = 300 + env->space * (((1 / sqrtf(6)) * ((i + 1) + j)) - ((sqrtf(2 / sqrtf(3))) * tab->tab_int[j][i + 1]));
-}
-
-void		calcul2(t_coord *coord, t_tab *tab, t_env *env, int i, int j, t_angle *angle)
-{
-	coord->x1 = 200 + env->space * ((sqrtf(2) / 2) * i - ((sqrtf(2) / 2) * j));
-	coord->y1 = 300 + env->space * (((1 / sqrtf (6)) * (i + j)) - ((sqrtf(2 / sqrtf(3))) * tab->tab_int[j][i]));
-	coord->x2 = 200 + env->space * ((sqrtf(2) / 2) * i - ((sqrtf(2) / 2) * (j + 1)));
-	coord->y2 = 300 + env->space * (((1 / sqrtf (6)) * (i + (j + 1))) - ((sqrtf(2 / sqrtf(3))) * tab->tab_int[j + 1][i]));
-}
-*/
 void		tabtab(t_tab *tab, t_env *env, t_angle *angle)
 {
 	int			i;
 	int			j;
-	int			x;
-	int			y;
+//	int			x;
+//	int			y;
 	t_coord		coord;
 
 	j = 0;
@@ -122,7 +74,10 @@ void		tabtab(t_tab *tab, t_env *env, t_angle *angle)
 		i = 0;
 		while (i < tab->size_hor)
 		{
-			calcul(&coord, tab, env, i, j, angle);
+			if (env->pro == 1)
+                ortho_hor(&coord, tab, env, i, j, angle);
+            else
+                iso_hor(&coord, tab, env, i, j);
 			if (i + 1 < tab->size_hor)
 			{
 				draw_line(env, &coord, tab, i, j);
@@ -130,14 +85,16 @@ void		tabtab(t_tab *tab, t_env *env, t_angle *angle)
 			}
 			if (j + 1 < tab->size_ver)
 			{	
-				calcul2(&coord, tab, env, i, j, angle);
-//				draw_ver(env, x, y);
+                if (env->pro == 1)
+                ortho_ver(&coord, tab, env, i, j, angle);
+            else
+                iso_ver(&coord, tab, env, i, j);
 				draw_line(env, &coord, tab, i, j);
 			}
-			x += env->space;
+//			x += env->space;
 			i++;
 		}
-		y += env->space;
+//		y += env->space;
 		j++;
 	}
 }
