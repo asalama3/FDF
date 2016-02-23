@@ -6,13 +6,13 @@
 /*   By: asalama <asalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/10 18:06:13 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/23 19:25:35 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/23 19:45:26 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		ortho_hor(t_coord *coord, t_tab *tab, t_env *env, t_a *a)
+void		ortho_hor(t_coord *coord, t_tab *tab, t_env *env, t_angle *a)
 {
 	int		i;
 	int		j;
@@ -27,7 +27,7 @@ void		ortho_hor(t_coord *coord, t_tab *tab, t_env *env, t_a *a)
 				cos(a->b) * j) + cos(a->a) * tab->tab_int[j][i + 1]);
 }
 
-void		ortho_ver(t_coord *coord, t_tab *tab, t_env *env, t_a *a)
+void		ortho_ver(t_coord *coord, t_tab *tab, t_env *env, t_angle *a)
 {
 	int		i;
 	int		j;

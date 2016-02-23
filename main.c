@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/23 19:11:41 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/23 19:44:30 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		main(int argc, char **argv)
 	t_tab	*tab;
 //	int		fd;
 //	char	**tab_int;
-    t_angle angle;
+    t_angle a;
 
 	if (argc == 2)
 	{
@@ -109,8 +109,8 @@ int		main(int argc, char **argv)
 //		print_tab_int(tab->tab_int);
 		env.x = 0;
 		env.y = 0;
-        angle.a = 220 * M_PI / 180;
-        angle.b = 20 * M_PI / 180;
+        a.a = 220 * M_PI / 180;
+        a.b = 20 * M_PI / 180;
 		env.mlx = mlx_init();
 		env.space = 20;
         env.pro = 1;
@@ -121,10 +121,10 @@ int		main(int argc, char **argv)
         printf("SL : %i\n", env.size_line);
 		printf("ENDIAN : %i\n", env.endian);
 //		draw_square(&env);
-		tabtab(tab, &env, &angle);
+		tabtab(tab, &env, &a);
 		mlx_put_image_to_window(env.mlx, env.win, env.img, env.x, env.y);
 		env.tab = tab;
-        env.angle = &angle;
+        env.angle = &a;
 //		mlx_key_hook(env.win, key_hook, &env);
 		//mlx_key_hook(env.win, key, &env);
         mlx_hook(env.win, KEYPRESS, KEYPRESSMASK, key_hook ,&env);
