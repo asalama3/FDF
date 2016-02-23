@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/28 13:09:21 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/23 18:49:52 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/23 19:01:19 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,21 @@
 # define KEYPRESS 2
 # define KEYPRESSMASK 1
 
-typedef struct      s_tab
+typedef struct		s_tab
 {
 	int				**tab_int;
 	int				size_hor;
 	int				size_ver;
-    int             i;
-    int             j;
+	int				i;
+	int				j;
 
-}                   t_tab;
+}					t_tab;
 
-typedef struct      s_angle
+typedef struct		s_angle
 {
-    float           a;
-    float           b;
-}                   t_angle;
+	float			a;
+	float			b;
+}					t_angle;
 
 typedef struct		s_env
 {
@@ -59,12 +59,12 @@ typedef struct		s_env
 	int				size_line;
 	int				endian;
 	int				bpp;
-	int             x;
+	int				x;
 	int				y;
-    int             pro;
+	int				pro;
 	int				space;
-    t_tab			*tab;
-    t_angle         *angle;
+	t_tab			*tab;
+	t_angle			*angle;
 }					t_env;
 
 typedef struct		s_coord
@@ -75,9 +75,8 @@ typedef struct		s_coord
 	int				y2;
 }					t_coord;
 
-
 t_tab				*read_file(char *argv);
-void                tabtab(t_tab *tab, t_env *env, t_angle *angle);
+void				tabtab(t_tab *tab, t_env *env, t_angle *angle);
 void				put_pixel(t_env *env, int x, int y, t_tab *tab);
 int					print_tab_int(t_tab *tab);
 void				move_right(t_env *env);
@@ -91,12 +90,14 @@ void				relief_z_down(t_env *env, t_tab *tab, t_angle *angle);
 void				rotate_1(t_env *env, t_tab *tab, t_angle *angle);
 void				rotate_2(t_env *env, t_tab *tab, t_angle *angle);
 void				image(t_env *env, t_tab *tab, t_angle *angle);
-void                ortho_hor(t_coord *coord, t_tab *tab, t_env *env, t_angle *angle);
-void                ortho_ver(t_coord *coord, t_tab *tab, t_env *env, t_angle *angle);
-void                iso_hor(t_coord *coord, t_tab *tab, t_env *env);
-void                iso_ver(t_coord *coord, t_tab *tab, t_env *env);
-void                ortho(t_env *env, t_tab *tab, t_angle *angle);
-void                iso(t_env *env, t_tab *tab, t_angle *angle);
-void                ft_error(char *s);
+void				ortho_hor(t_coord *coord, t_tab *tab, t_env *env,
+		t_angle *angle);
+void				ortho_ver(t_coord *coord, t_tab *tab, t_env *env,
+		t_angle *angle);
+void				iso_hor(t_coord *coord, t_tab *tab, t_env *env);
+void				iso_ver(t_coord *coord, t_tab *tab, t_env *env);
+void				ortho(t_env *env, t_tab *tab, t_angle *angle);
+void				iso(t_env *env, t_tab *tab, t_angle *angle);
+void				ft_error(char *s);
 
 #endif
