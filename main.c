@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/27 13:39:43 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/23 12:43:16 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/23 18:49:39 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ int        key(t_env *env)
     mlx_do_key_autorepeaton(env->mlx);
   //  key_hook(env);
     return (0);
+}
+
+
+void    ft_error(char *s)
+{
+    ft_putendl(s);
+    exit(0);
 }
 
 int		main(int argc, char **argv)

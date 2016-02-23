@@ -6,7 +6,7 @@
 /*   By: asalama <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 19:24:42 by asalama           #+#    #+#             */
-/*   Updated: 2016/02/22 11:17:28 by asalama          ###   ########.fr       */
+/*   Updated: 2016/02/23 18:49:48 by asalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ int			check_line(char *line)
 
 t_tab		*double_tab_int(int fd, char *argv)
 {
-	int		i;
 	t_tab	*tab;
 	char	**tab_char;
-	int		j;
 	char	*line;
+    int     tmp;
 
 	if ((tab = (t_tab*)malloc(sizeof(t_tab))) == NULL)
 		return (NULL);
@@ -40,32 +39,31 @@ t_tab		*double_tab_int(int fd, char *argv)
 	tab->size_ver = 0;
 	while (get_next_line(fd, &line) > 0)
 		tab->size_ver++;
-	close(fd);
+	if (close(fd) == -1)
+        ft_error("close error");
 	if (!(tab->tab_int = (int**)malloc(sizeof(int*) * tab->size_ver + 1)))
 		return (NULL);
-//	tab_int[size + 1] = NULL;
-	i = 0;
+	tab->i = 0;
 	fd = open(argv, O_RDONLY);
-	while (i < tab->size_ver)
+	while (tab->i < tab->size_ver)
 	{
 		get_next_line(fd, &line);
-//		size = 0;
-		j = 0;
+		tab->j = 0;
 		if (!check_line(line))
 			return (NULL);
 		tab_char = ft_strsplit(line, ' ');
 		while (tab_char[tab->size_hor])
 			tab->size_hor++;
-		tab->tab_int[i] = (int*)malloc(sizeof(int) * tab->size_hor + 1);
-//		tab_int[i][0] = size2;
-		while (j < tab->size_hor)
+		tab->tab_int[tab->i] = (int*)malloc(sizeof(int) * tab->size_hor + 1);
+        if (tab->i > 0 && tmp != tab->size_hor)
+            return (NULL);
+		tmp = tab->size_hor;
+        while (tab->j < tab->size_hor)
 		{
-			tab->tab_int[i][j] = ft_atoi(tab_char[j]);
-//			printf("---------------------------\n%i\n", tab->tab_int[i][j]);
-//			printf("%i\n", ft_atoi(tab_char[j]));
-			j++;
+			tab->tab_int[tab->i][tab->j] = ft_atoi(tab_char[tab->j]);
+			tab->j++;
 		}
-		i++;
+		tab->i++;
 	}
 	close(fd);
 	return (tab);
@@ -76,6 +74,8 @@ int			print_tab_int(t_tab *tab)
 	int		i;
 	int		j;
 
+    i = tab->i;
+    j = tab->j;
 	j = 0;
 	while (j < tab->size_ver)
 	{
@@ -98,7 +98,7 @@ t_tab		*read_file(char *argv)
 	t_tab	*tab;
 
 	if ((fd = open(argv, O_RDONLY)) == -1)
-		return (0);
+		ft_error("fd error");
 	if (!(tab = double_tab_int(fd, argv)))
 		return (0);
 	print_tab_int(tab);
