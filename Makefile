@@ -6,7 +6,7 @@
 #    By: asalama <asalama@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/04 12:14:52 by asalama           #+#    #+#              #
-#    Updated: 2016/02/23 12:46:47 by asalama          ###   ########.fr        #
+#    Updated: 2016/02/24 13:28:40 by asalama          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC = main.c		\
 	  move.c		\
 	  pro.c			\
 	  rotate.c		\
+	  key_hook.c	\
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:%.c=%.o))
 
@@ -46,7 +47,7 @@ $(NAME): $(OBJ)
 $(OBJ_PATH)%.o : %.c
 	@echo "\033[1;32m" "Compiling $< into $@" "\033[0m"
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(HEADER_PATH) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJ_PATH)

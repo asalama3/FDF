@@ -6,7 +6,7 @@
 #    By: asalama <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/25 16:46:12 by asalama           #+#    #+#              #
-#    Updated: 2016/01/29 16:34:49 by asalama          ###   ########.fr        #
+#    Updated: 2016/02/24 13:28:35 by asalama          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,22 +79,30 @@ CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
-all: $(NAME)
+OBJ = $(addprefix $(OBJ_PATH), $(SRC:%.c=%.o))
+
+HEADER_PATH = -I includes/
+
+OBJ_PATH = ./OBJ/
+
+.PHONY: clean fclean re all
+
+all: $(SRC) $(NAME)
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
-%.o: %.c
-	$(CC) -o $@ -c $< $(CFLAGS)
-
-.PHONY: clean fclean re
+$(OBJ_PATH)%.o: %.c
+	@echo "\033[1;32m" "Compiling $< into $@" "\033[0m"
+	@mkdir -p $(OBJ_PATH)
+	@$(CC) -o $@ -c $< $(CFLAGS) $(HEADER_PATH)
 
 clean:
-	rm -f $(OBJ)
+	@rm -rf $(OBJ_PATH)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 
